@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
+        tools:context=".activities.MainActivity"
         android:background="@color/colorPrimary">
     <LinearLayout
         android:id="@+id/header_layout"
@@ -31,7 +31,7 @@
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:layout_weight="1"
             android:ellipsize="end"
-            android:fontFamily="@font/Ubuntu_Bold"
+            android:fontFamily="@font/ubuntu_bold"
             android:includeFontPadding="false"
             android:maxLines="1"
             android:text="@string/main_toolbar_header"
@@ -76,7 +76,7 @@
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:visibility="@{isLoading ? View.VISIBLE : View.GONE, default=Gone}"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE, default=gone}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_layout" />
