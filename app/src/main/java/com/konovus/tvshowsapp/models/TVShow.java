@@ -6,6 +6,7 @@ public class TVShow {
 
     private int id;
     private String name;
+    @SerializedName("start_date")
     private String startDate;
     private String country;
     private String network;
