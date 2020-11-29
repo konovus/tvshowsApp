@@ -18,9 +18,11 @@ public class TVShowsAdapter extends RecyclerView.Adapter<TVShowsAdapter.TVShowVi
 
     private List<TVShow> tvShows;
     private LayoutInflater layoutInflater;
+    private TVShowListener tvShowListener;
 
-    public TVShowsAdapter(List<TVShow> tvShows) {
+    public TVShowsAdapter(List<TVShow> tvShows, TVShowListener tvShowListener) {
         this.tvShows = tvShows;
+        this.tvShowListener = tvShowListener;
     }
 
     @NonNull
@@ -44,18 +46,28 @@ public class TVShowsAdapter extends RecyclerView.Adapter<TVShowsAdapter.TVShowVi
         return tvShows.size();
     }
 
-    public static class TVShowViewHolder extends RecyclerView.ViewHolder{
+    public class TVShowViewHolder extends RecyclerView.ViewHolder{
 
         private TvShowItemBinding tvShowItemBinding;
 
         public TVShowViewHolder(TvShowItemBinding tvShowItemBinding) {
             super(tvShowItemBinding.getRoot());
             this.tvShowItemBinding = tvShowItemBinding;
+
         }
 
         public void bindTVShow(TVShow tvShow){
             tvShowItemBinding.setTvShow(tvShow);
             tvShowItemBinding.executePendingBindings();
+            tvShowItemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tvShowListener.OnTVShowClicked(tvShow);
+                }
+            });
         }
+    }
+    public interface TVShowListener{
+        void OnTVShowClicked(TVShow tvShow);
     }
 }

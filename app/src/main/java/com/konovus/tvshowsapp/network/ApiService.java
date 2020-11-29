@@ -1,5 +1,6 @@
 package com.konovus.tvshowsapp.network;
 
+import com.konovus.tvshowsapp.responses.TVShowDetailsResponse;
 import com.konovus.tvshowsapp.responses.TVShowsResponse;
 
 import retrofit2.Call;
@@ -10,4 +11,7 @@ public interface ApiService {
 
     @GET("most-popular")
     Call<TVShowsResponse> getMostPopularTVShows(@Query("page") int page);
+
+    @GET("show-details")
+    Call<TVShowDetailsResponse> getTVShowDetails(@Query("q") int id);
 }
