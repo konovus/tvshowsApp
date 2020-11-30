@@ -18,6 +18,30 @@
         android:background="@color/colorPrimary"
         tools:context=".repositories.TVShowDetailsActivity">
 
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/sliderViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_160sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+        <View
+            android:id="@+id/viewFadingEdge"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            app:layout_constraintBottom_toBottomOf="@id/sliderViewPager"
+            android:visibility="gone"
+            android:background="@drawable/bg_fading_edge_shape"/>
+        <LinearLayout
+            android:id="@+id/layoutSliderIndicators"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingBottom="@dimen/_8sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/viewFadingEdge"/>
+
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="@dimen/_24sdp"
