@@ -7,6 +7,24 @@
         <variable
             name="isLoading"
             type="boolean" />
+        <variable
+            name="tvShowImageUrl"
+            type="String" />
+        <variable
+            name="tvShowName"
+            type="String" />
+        <variable
+            name="networkCountry"
+            type="String" />
+        <variable
+            name="status"
+            type="String" />
+        <variable
+            name="startedDate"
+            type="String" />
+        <variable
+            name="description"
+            type="String" />
 
 <!--        for View.Visible to work-->
         <import type="android.view.View"/>
@@ -34,13 +52,133 @@
             android:background="@drawable/bg_fading_edge_shape"/>
         <LinearLayout
             android:id="@+id/layoutSliderIndicators"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:paddingBottom="@dimen/_8sdp"
+            android:gravity="end|center_vertical"
+            android:padding="@dimen/_8sdp"
             android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/poster_img"
             app:layout_constraintBottom_toBottomOf="@id/viewFadingEdge"/>
+        
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:tint="#fff"
+            android:contentDescription="@string/app_name"
+            android:layout_margin="@dimen/_10sdp"
+            android:padding="@dimen/_3sdp"
+            android:background="@drawable/back_arrow_shape"
+            android:src="@drawable/ic_back"/>
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/poster_img"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:visibility="gone"
+            android:scaleType="centerCrop"
+            android:imageURL="@{tvShowImageUrl}"
+            app:layout_constraintTop_toBottomOf="@id/sliderViewPager"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/sliderViewPager"
+            app:riv_corner_radius="@dimen/_5sdp"/>
+        <TextView
+            android:id="@+id/title_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:maxLines="1"
+            android:fontFamily="@font/ubuntu_bold"
+            android:includeFontPadding="false"
+            android:text="@{tvShowName}"
+            android:textColor="@color/colorTextIcons"
+            android:textSize="@dimen/_14ssp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/sliderViewPager"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/poster_img" />
+        <TextView
+            android:id="@+id/network_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:maxLines="1"
+            android:fontFamily="@font/ubuntu_regular"
+            android:includeFontPadding="false"
+            android:text="@{networkCountry}"
+            android:textColor="@color/colorTextOther"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/title_details"
+            app:layout_constraintRight_toRightOf="@id/title_details"
+            app:layout_constraintLeft_toLeftOf="@id/title_details" />
+        <TextView
+            android:id="@+id/status_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:maxLines="1"
+            android:fontFamily="@font/ubuntu_regular"
+            android:includeFontPadding="false"
+            android:text="@{status}"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/network_details"
+            app:layout_constraintRight_toRightOf="@id/title_details"
+            app:layout_constraintLeft_toLeftOf="@id/title_details" />
+        <TextView
+            android:id="@+id/startedDate_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text='@{"Started on: " + startedDate}'
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/status_details"
+            app:layout_constraintRight_toRightOf="@id/title_details"
+            app:layout_constraintLeft_toLeftOf="@id/status_details" />
+
+        <TextView
+            android:id="@+id/description_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:includeFontPadding="false"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/_2sdp"
+            android:text='@{description}'
+            android:textColor="@color/colorTextIcons"
+            android:textSize="@dimen/_11ssp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/poster_img"/>
+
+        <TextView
+            android:id="@+id/readMore_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:includeFontPadding="false"
+            android:text='Read More'
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/description_details"
+            app:layout_constraintStart_toStartOf="@id/description_details"/>
+
 
         <ProgressBar
             android:id="@+id/progressBar"
