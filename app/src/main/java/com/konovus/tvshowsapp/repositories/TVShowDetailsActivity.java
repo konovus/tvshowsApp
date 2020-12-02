@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,6 +24,8 @@ import com.konovus.tvshowsapp.databinding.ActivityTVShowDetailsBinding;
 import com.konovus.tvshowsapp.models.TVShow;
 import com.konovus.tvshowsapp.responses.TVShowDetailsResponse;
 import com.konovus.tvshowsapp.viewmodels.TVShowDetailsViewModel;
+
+import java.util.Locale;
 
 public class TVShowDetailsActivity extends AppCompatActivity {
 
@@ -76,6 +80,27 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                                 }
                             }
                         });
+                        activityTVShowDetailsBinding.setRating(
+                                String.format(Locale.getDefault(), "%.2f",
+                                        Double.parseDouble(tvShowDetailsResponse.getTvShowDetails().getRating()))
+                        );
+                        if(tvShowDetailsResponse.getTvShowDetails().getGenres() != null)
+                            activityTVShowDetailsBinding.setGenre(tvShowDetailsResponse.getTvShowDetails().getGenres()[0]);
+                        else activityTVShowDetailsBinding.setGenre("N/A");
+                        activityTVShowDetailsBinding.setRuntime(tvShowDetailsResponse.getTvShowDetails().getRuntime() + "Min");
+                        activityTVShowDetailsBinding.viewDivider1.setVisibility(View.VISIBLE);
+                        activityTVShowDetailsBinding.layoutMisc.setVisibility(View.VISIBLE);
+                        activityTVShowDetailsBinding.viewDivider2.setVisibility(View.VISIBLE);
+                        activityTVShowDetailsBinding.btnWebsite.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(tvShowDetailsResponse.getTvShowDetails().getUrl()));
+                                startActivity(intent);
+                            }
+                        });
+                        activityTVShowDetailsBinding.btnWebsite.setVisibility(View.VISIBLE);
+                        activityTVShowDetailsBinding.btnEpisodes.setVisibility(View.VISIBLE);
                         loadBasicTVShowInfo(tvShow);
                     }
                 }
