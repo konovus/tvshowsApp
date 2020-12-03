@@ -12,15 +12,19 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.konovus.tvshowsapp.R;
+import com.konovus.tvshowsapp.adapters.EpisodesAdapter;
 import com.konovus.tvshowsapp.adapters.ItemSliderAdapter;
 import com.konovus.tvshowsapp.databinding.ActivityTVShowDetailsBinding;
+import com.konovus.tvshowsapp.databinding.EpisodesBottomLayoutBinding;
 import com.konovus.tvshowsapp.models.TVShow;
 import com.konovus.tvshowsapp.responses.TVShowDetailsResponse;
 import com.konovus.tvshowsapp.viewmodels.TVShowDetailsViewModel;
@@ -31,6 +35,8 @@ public class TVShowDetailsActivity extends AppCompatActivity {
 
     private ActivityTVShowDetailsBinding activityTVShowDetailsBinding;
     private TVShowDetailsViewModel viewModel;
+    private BottomSheetDialog bottomSheetDialog;
+    private EpisodesBottomLayoutBinding episodesBottomLayoutBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +107,26 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                         });
                         activityTVShowDetailsBinding.btnWebsite.setVisibility(View.VISIBLE);
                         activityTVShowDetailsBinding.btnEpisodes.setVisibility(View.VISIBLE);
+                        activityTVShowDetailsBinding.btnEpisodes.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(bottomSheetDialog == null)
+                                    bottomSheetDialog = new BottomSheetDialog(TVShowDetailsActivity.this);
+                                EpisodesBottomLayoutBinding episodesBottomLayoutBinding = DataBindingUtil.inflate(
+                                        LayoutInflater.from(TVShowDetailsActivity.this),
+                                        R.layout.episodes_bottom_layout, findViewById(R.id.episodesContainer), false
+                                );
+                                bottomSheetDialog.setContentView(episodesBottomLayoutBinding.getRoot());
+                                episodesBottomLayoutBinding.episodesRecyclerView.setAdapter(
+                                        new EpisodesAdapter(tvShowDetailsResponse.getTvShowDetails().getEpisodes())
+                                );
+                                episodesBottomLayoutBinding.titleEpisode.setText("Episodes | " + tvShow.getName());
+                                episodesBottomLayoutBinding.closeImg.setOnClickListener((view)-> bottomSheetDialog.dismiss());
+
+                                bottomSheetDialog.show();
+                            }
+
+                        });
                         loadBasicTVShowInfo(tvShow);
                     }
                 }
