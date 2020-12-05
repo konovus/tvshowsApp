@@ -3,21 +3,17 @@ package com.konovus.tvshowsapp.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
 
 import com.konovus.tvshowsapp.R;
 import com.konovus.tvshowsapp.adapters.TVShowsAdapter;
 import com.konovus.tvshowsapp.databinding.ActivityMainBinding;
 import com.konovus.tvshowsapp.models.TVShow;
-import com.konovus.tvshowsapp.repositories.TVShowDetailsActivity;
-import com.konovus.tvshowsapp.responses.TVShowsResponse;
 import com.konovus.tvshowsapp.viewmodels.MostPopularTvShowsViewModel;
 
 import java.util.ArrayList;
@@ -54,6 +50,12 @@ public class MainActivity extends AppCompatActivity implements TVShowsAdapter.TV
                     currentPage++;
                     getMostPopular();
                 }
+            }
+        });
+        activityMainBinding.imgWatchlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), WatchlistActivity.class));
             }
         });
         getMostPopular();

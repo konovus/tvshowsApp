@@ -3,6 +3,8 @@ package com.konovus.tvshowsapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+
 public class Episode implements Parcelable {
 
     private String season;

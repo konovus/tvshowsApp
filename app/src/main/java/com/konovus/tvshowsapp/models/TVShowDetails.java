@@ -1,8 +1,9 @@
 package com.konovus.tvshowsapp.models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TVShowDetails {
+public class TVShowDetails implements Serializable {
 
     private String url;
     private String description;

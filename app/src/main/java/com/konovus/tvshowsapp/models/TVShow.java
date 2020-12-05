@@ -5,8 +5,15 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TVShow implements Parcelable {
+import java.io.Serializable;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "tvShows")
+public class TVShow implements Serializable {
+
+    @PrimaryKey
     private int id;
     private String name;
     @SerializedName("start_date")
@@ -17,43 +24,34 @@ public class TVShow implements Parcelable {
     @SerializedName("image_thumbnail_path")
     private String thumbnail;
 
-    protected TVShow(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        startDate = in.readString();
-        country = in.readString();
-        network = in.readString();
-        status = in.readString();
-        thumbnail = in.readString();
+
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeString(startDate);
-        dest.writeString(country);
-        dest.writeString(network);
-        dest.writeString(status);
-        dest.writeString(thumbnail);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public static final Creator<TVShow> CREATOR = new Creator<TVShow>() {
-        @Override
-        public TVShow createFromParcel(Parcel in) {
-            return new TVShow(in);
-        }
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-        @Override
-        public TVShow[] newArray(int size) {
-            return new TVShow[size];
-        }
-    };
+    public void setNetwork(String network) {
+        this.network = network;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
 
     public int getId() {
         return id;
