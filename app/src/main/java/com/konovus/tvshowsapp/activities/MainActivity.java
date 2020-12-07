@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements TVShowsAdapter.TV
         doInitialization();
     }
 
-    private void doInitialization(){
+    private void doInitialization() {
         activityMainBinding.recyclerViewTvShows.setHasFixedSize(true);
         viewModel = new ViewModelProvider(this).get(MostPopularTvShowsViewModel.class);
         adapter = new TVShowsAdapter(tvShows, this);
@@ -45,26 +45,23 @@ public class MainActivity extends AppCompatActivity implements TVShowsAdapter.TV
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if(!recyclerView.canScrollVertically(1)
+                if (!recyclerView.canScrollVertically(1)
                         && currentPage < totalPages) {
                     currentPage++;
                     getMostPopular();
                 }
             }
         });
-        activityMainBinding.imgWatchlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), WatchlistActivity.class));
-            }
-        });
+        activityMainBinding.imgWatchlist.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), WatchlistActivity.class)));
+        activityMainBinding.imgSearch.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
         getMostPopular();
     }
-    private void getMostPopular(){
+
+    private void getMostPopular() {
         toggleLoading();
         viewModel.getMostPopularTvShows(currentPage).observe(this, tvShowsResponse -> {
             toggleLoading();
-            if(tvShowsResponse != null && tvShowsResponse.getTvShows() != null){
+            if (tvShowsResponse != null && tvShowsResponse.getTvShows() != null) {
                 totalPages = tvShowsResponse.getPages();
                 int oldCount = tvShows.size();
                 tvShows.addAll(tvShowsResponse.getTvShows());
@@ -72,14 +69,15 @@ public class MainActivity extends AppCompatActivity implements TVShowsAdapter.TV
             }
         });
     }
-    private void toggleLoading(){
-        if(currentPage == 1){
-            if(activityMainBinding.getIsLoading())
+
+    private void toggleLoading() {
+        if (currentPage == 1) {
+            if (activityMainBinding.getIsLoading())
                 activityMainBinding.setIsLoading(false);
             else
                 activityMainBinding.setIsLoading(true);
         } else {
-            if(activityMainBinding.getIsLoadingMore())
+            if (activityMainBinding.getIsLoadingMore())
                 activityMainBinding.setIsLoadingMore(false);
             else
                 activityMainBinding.setIsLoadingMore(true);

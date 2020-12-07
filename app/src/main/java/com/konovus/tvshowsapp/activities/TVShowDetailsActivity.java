@@ -112,7 +112,8 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                                 String.format(Locale.getDefault(), "%.2f",
                                         Double.parseDouble(tvShowDetailsResponse.getTvShowDetails().getRating()))
                         );
-                        if(tvShowDetailsResponse.getTvShowDetails().getGenres() != null)
+                        if(tvShowDetailsResponse.getTvShowDetails().getGenres() != null
+                                && tvShowDetailsResponse.getTvShowDetails().getGenres().length != 0)
                             activityTVShowDetailsBinding.setGenre(tvShowDetailsResponse.getTvShowDetails().getGenres()[0]);
                         else activityTVShowDetailsBinding.setGenre("N/A");
                         activityTVShowDetailsBinding.setRuntime(tvShowDetailsResponse.getTvShowDetails().getRuntime() + "Min");
